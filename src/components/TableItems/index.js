@@ -1,11 +1,16 @@
 import React, { PropTypes } from 'react';
 import { Button, Glyphicon, Table, Grid, Row, Col } from 'react-bootstrap';
+import { ButtonWithDialog } from '../../components';
+import { mode } from '../../constants/common';
 
 export default class TableItems extends React.Component {
-
 	onDelete = (id) => {
 		this.props.onDeleteItem(id);
 	};
+
+	/*onUpdate = (item) => {
+		this.props.onUpdateItem(item);
+	};*/
 
 	render() {
 		const { items, fieldsOptions } = this.props;
@@ -34,7 +39,16 @@ export default class TableItems extends React.Component {
 							return (<td key={propname}>{item[propname]}</td>);
 						})
 					}
-					<Button onClick={this.onDelete.bind(this, item.id)}><Glyphicon glyph="star"/></Button>
+					<td>
+						<Button bsSize="small" onClick={this.onDelete.bind(this, item.id)}><Glyphicon glyph="trash"/></Button>
+						<ButtonWithDialog
+							onAction={this.props.onUpdateItem}
+							fieldsOptions={fieldsOptions}
+							mode={mode.update}
+						  icon={<Glyphicon glyph="edit"/>}
+						  item={item}
+						/>
+					</td>
 				</tr>
 			);
 		});

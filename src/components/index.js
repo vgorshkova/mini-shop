@@ -3,13 +3,15 @@ import Home from './Home';
 import TableHeader from './TableHeader';
 import TableItems from './TableItems';
 import BaseContainer from './BaseContainer';
-import CreateDialog from './CreateDialog';
-import CreateCustomer from './CreateCustomer';
+import FormDialog from './FormDialog';
+import ButtonWithDialog from './ButtonWithDialog';
+import FieldGroup from './FieldGroup';
 
 export {
 	BaseContainer,
-	CreateCustomer,
-	CreateDialog,
+	ButtonWithDialog,
+	FormDialog,
+	FieldGroup,
 	Header,
 	Home,
 	TableHeader,

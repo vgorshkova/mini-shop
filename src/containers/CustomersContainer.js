@@ -6,20 +6,19 @@ import { customerActions } from '../actions';
 import { tableCustomerOptions } from '../constants/options';
 
 class CustomersContainer extends React.Component {
-
 	componentWillMount() {
 		this.props.onGetCustomers();
 	}
 
 	render() {
-		const { customers, onCreateCustomer, onGetCustomers, onDeleteCustomer } = this.props;
+		const { customers, onCreateCustomer, onGetCustomers, onDeleteCustomer,  onUpdateCustomer } = this.props;
 
 		return (
 			<DocumentTitle title="Customers">
 				<div>
 					<TableHeader
-						param={{name: "customers"}}
 						title="Customer list"
+						fieldsOptions={tableCustomerOptions}
 						onCreateItem={onCreateCustomer}
 						onGetList={onGetCustomers}
 						onDeleteItem={onDeleteCustomer}
@@ -28,6 +27,7 @@ class CustomersContainer extends React.Component {
 						items={customers}
 						fieldsOptions={tableCustomerOptions}
 						onDeleteItem={onDeleteCustomer}
+					  onUpdateItem={onUpdateCustomer}
 					/>
 				</div>
 			</DocumentTitle>
@@ -50,6 +50,7 @@ function mapStateToProps({ customers }) {
 
 export default connect(mapStateToProps, {
 	onCreateCustomer: customerActions.createCustomer,
-	onGetCustomers:customerActions.getCustomers,
+	onGetCustomers: customerActions.getCustomers,
+	onUpdateCustomer: customerActions.updateCustomer,
 	onDeleteCustomer: customerActions.deleteCustomer
 })(CustomersContainer);

@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { toULCase } from '../../utils/common';
 
-export default class CreateDialod extends React.Component{
+export default class FormDialog extends React.Component{
 	state = {
 		showModal: false,
 	};
@@ -14,20 +15,20 @@ export default class CreateDialod extends React.Component{
 		this.setState({ showModal: true });
 	};
 
-	onCreate = () => {
-		this.props.onCreate();
+	onAction = () => {
+		this.props.onAction();
 		this.onClose();
 	};
 
 	render() {
-		const { buttonTitle, modalBody, onCreate } = this.props;
+		const { modalBody, mode, icon } = this.props;
 
 		return (
 			<div>
-				<Button
-					onClick={this.onOpen}
-				>
-					{buttonTitle}
+				<Button	bsSize="small" onClick={this.onOpen}>
+					{
+						icon ? icon : toULCase( mode )
+					}
 				</Button>
 
 				<Modal show={this.state.showModal} onHide={this.onClose}>
@@ -39,7 +40,7 @@ export default class CreateDialod extends React.Component{
 					</Modal.Body>
 					<Modal.Footer>
 						<Button onClick={this.onClose}>Close</Button>
-						<Button onClick={onCreate}>Create</Button>
+						<Button onClick={this.onAction}>{toULCase( mode )}</Button>
 					</Modal.Footer>
 				</Modal>
 			</div>

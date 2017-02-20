@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import customers from './customers.reducer';
-//import products from './products';
+import products from './products.reducer';
 //import invoice from './invoice';
 
 const reducer = combineReducers({
 	customers,
-	//products,
+	products,
 	//invoice,
 	routing: routerReducer,
 });

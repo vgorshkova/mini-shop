@@ -40,6 +40,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "css-loader": "^0.23.1",
     "html-webpack-plugin": "^2.21.0",
+    "less-loader": "^2.2.3",
     "react-transform-hmr": "^1.0.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0",

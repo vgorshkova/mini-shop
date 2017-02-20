@@ -4,51 +4,51 @@ import axios from 'axios';
 import {
 	SEND_REQUEST,
 	RECEIVE_REQUEST,
-	ADD_CUSTOMER,
-	EDIT_CUSTOMER,
-	SET_CUSTOMERS,
-	REMOVE_CUSTOMER,
-	DELETE_ALL_CUSTOMERS
+	ADD_PRODUCT,
+	EDIT_PRODUCT,
+	SET_PRODUCTS,
+	REMOVE_PRODUCT,
+	DELETE_ALL_PRODUCTS
 } from '../constants/ActionTypes';
 
-export function addCustomer(customer) {
+export function addProduct(product) {
 	return ({
-		type: ADD_CUSTOMER,
+		type: ADD_PRODUCT,
 		payload: {
-			customer
+			product
 		}
 	});
 }
 
-export function setCustomers(customers) {
+export function setProducts(products) {
 	return ({
-		type: SET_CUSTOMERS,
+		type: SET_PRODUCTS,
 		payload: {
-			customers
+			products
 		}
 	});
 }
 
-export function editCustomer(customer) {
+export function editProduct(product) {
 	return ({
-		type: EDIT_CUSTOMER,
+		type: EDIT_PRODUCT,
 		payload: {
-			customer
+			product
 		}
 	});
 }
 
-export function removeCustomer(id) {
+export function removeProduct(id) {
 	return ({
-		type: REMOVE_CUSTOMER,
+		type: REMOVE_PRODUCT,
 		payload: {
 			id
 		}
 	});
 }
 
-export function deleteAllCustomers () {
-	return ({type: DELETE_ALL_CUSTOMERS});
+export function deleteAllProducts () {
+	return ({type: DELETE_ALL_PRODUCTS});
 }
 
 export function sendRequest() {
@@ -63,24 +63,24 @@ export function receiveRequest() {
 	});
 }
 
-export function createCustomer( customer ) {
+export function createProduct( product ) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.post("/api/customers", customer)
+		axios.post("/api/products", product)
 			.then(response => {
-					dispatch(addCustomer(response.data));
+					dispatch(addProduct(response.data));
 					dispatch(receiveRequest());
 				}
 			)
 	}
 }
 
-export function getCustomers() {
+export function getProducts() {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.get("/api/customers")
+		axios.get("/api/products")
 			.then(response => {
-					dispatch(setCustomers(response.data));
+					dispatch(setProducts(response.data));
 					dispatch(receiveRequest());
 				}
 			)
@@ -88,13 +88,13 @@ export function getCustomers() {
 	}
 }
 
-export function deleteCustomer(id) {
+export function deleteProduct(id) {
 	return dispatch => {
 		dispatch(sendRequest());
 		debugger;
-		axios.delete(`/api/customers/${id}`)
+		axios.delete(`/api/products/${id}`)
 			.then(response => {
-					dispatch(removeCustomer(response.data.id));
+					dispatch(removeProduct(response.data.id));
 					dispatch(receiveRequest());
 				}
 			)
@@ -102,12 +102,12 @@ export function deleteCustomer(id) {
 	}
 }
 
-export function updateCustomer(customer) {
+export function updateProduct(product) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.put(`/api/customers/${customer.id}`, customer)
+		axios.put(`/api/products/${product.id}`, product)
 			.then(response => {
-					dispatch(editCustomer(response.data));
+					dispatch(editProduct(response.data));
 					dispatch(receiveRequest());
 				}
 			)
