@@ -4,7 +4,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { ButtonWithDialog } from '../../components';
 import { mode } from '../../constants/common';
 
-export default function TableHeader({ title, fieldsOptions, onCreateItem, onGetList, onDeleteItem }) {
+export default function TableHeader({ title, fieldsOptions, onCreateItem, onGetList }) {
 	return (
 		<Grid>
 			<Row>

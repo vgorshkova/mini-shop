@@ -88,11 +88,10 @@ export function getCustomers() {
 	}
 }
 
-export function deleteCustomer(id) {
+export function deleteCustomer(customer) {
 	return dispatch => {
 		dispatch(sendRequest());
-		debugger;
-		axios.delete(`/api/customers/${id}`)
+		axios.delete(`/api/customers/${customer.id}`)
 			.then(response => {
 					dispatch(removeCustomer(response.data.id));
 					dispatch(receiveRequest());

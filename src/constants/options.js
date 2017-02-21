@@ -1,3 +1,9 @@
+//
+// 'label' - the label name
+// 'canEdit' - prop will be showen on the form/dialog for add/update item
+// 'isRequired' - prop needs to be not empty
+// 'sortId' - prop determines the fields sequence
+//
 export const tableCustomerOptions = {
 	id: {
 		label: "#",
@@ -29,10 +35,12 @@ export const tableProductOptions = {
 	name: {
 		label: "Name",
 		sortId: 10,
+		canEdit: true,
+		isRequired: true,
 	},
 	price: {
 		label: "Price",
 		sortId: 15,
+		canEdit: true,
 	},
-
 };

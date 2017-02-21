@@ -88,11 +88,10 @@ export function getProducts() {
 	}
 }
 
-export function deleteProduct(id) {
+export function deleteProduct(product) {
 	return dispatch => {
 		dispatch(sendRequest());
-		debugger;
-		axios.delete(`/api/products/${id}`)
+		axios.delete(`/api/products/${product.id}`)
 			.then(response => {
 					dispatch(removeProduct(response.data.id));
 					dispatch(receiveRequest());

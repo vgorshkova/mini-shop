@@ -8,12 +8,13 @@ export default class TableItems extends React.Component {
 		this.props.onDeleteItem(id);
 	};
 
-	/*onUpdate = (item) => {
+	onUpdate = (item) => {
+		debugger;
 		this.props.onUpdateItem(item);
-	};*/
+	};
 
 	render() {
-		const { items, fieldsOptions } = this.props;
+		const { items, fieldsOptions, title } = this.props;
 
 		if (!(items && items.length)) {
 			return null;
@@ -33,14 +34,19 @@ export default class TableItems extends React.Component {
 
 		const tableBody = items.map((item, idx) => {
 			return (
-				<tr key={`tableItem_${idx}`}>
+				<tr key={`tableItem_${item.id}`}>
 					{
 						propNames.map(propname => {
 							return (<td key={propname}>{item[propname]}</td>);
 						})
 					}
-					<td>
-						<Button bsSize="small" onClick={this.onDelete.bind(this, item.id)}><Glyphicon glyph="trash"/></Button>
+					<td key={`ButtonGroup_${item.id}`}>
+						<ButtonWithDialog
+							onAction={this.props.onDeleteItem}
+							mode={mode.delete}
+							icon={<Glyphicon glyph="trash"/>}
+							item={item}
+						/>
 						<ButtonWithDialog
 							onAction={this.props.onUpdateItem}
 							fieldsOptions={fieldsOptions}
