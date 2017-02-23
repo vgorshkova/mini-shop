@@ -10,8 +10,8 @@ export default function TableHeaderWithLink({ title, toCreateLink }) {
 				<Col xs={12} md={12}>
 					<PageHeader>
 						{`${title} `}
-						<h3><Link to={toCreateLink}>Create</Link></h3>
 					</PageHeader>
+					<h3><Link to={toCreateLink}>Create</Link></h3>
 				</Col>
 			</Row>
 		</Grid>

@@ -1,9 +1,13 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
-import { TableItemsWithLink, TableHeaderWithLink } from '../components';
+import {FormGroup} from 'react-bootstrap';
+import {FormDialog, FieldGroup} from '../components';
 import { invoiceActions, customerActions, productActions } from '../actions';
-import { tableInvoiceOptions } from '../constants/options';
+import { tableInvoiceItemOptions } from '../constants/options';
+
+import { TableItemsWithLink, TableHeaderWithLink } from '../components';
+
 
 class InvoicesContainer extends React.Component {
 	componentWillMount() {
@@ -37,16 +41,15 @@ class InvoicesContainer extends React.Component {
 		return (
 			<DocumentTitle title="Invoice item">
 				<div>
-					<TableHeaderWithLink
-						title="Invoice list"
-						fieldsOptions={tableInvoiceOptions}
-					  toCreateLink={`invoice/create`}
-					/>
-					<TableItemsWithLink
-						items={items}
-						fieldsOptions={tableInvoiceOptions}
-						onDeleteItem={onDeleteInvoice}
-						toUpdateLink={`invoice/edit`}
+					<FieldGroup
+						key={`discount_id`}
+						id={`discount_id`}
+						label={fieldsOptions.discount.label}
+						validation={fieldsOptions.discount.isRequired}
+						type='text'
+						value={this.state.invoice.discount}
+						placeholder={fieldsOptions.discount.label}
+						onChange={this.handleChange.bind(this, discount)}
 					/>
 				</div>
 			</DocumentTitle>
