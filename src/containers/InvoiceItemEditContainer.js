@@ -5,18 +5,19 @@ import {FormGroup} from 'react-bootstrap';
 import {FormDialog, FieldGroup} from '../components';
 import { invoiceActions, customerActions, productActions } from '../actions';
 import { tableInvoiceItemOptions } from '../constants/options';
+import { RoutesNames } from '../constants/RoutesNames';
 
-import { TableItemsWithLink, TableHeaderWithLink } from '../components';
-
-
-class InvoicesContainer extends React.Component {
+class InvoiceItemEditContainer extends React.Component {
 	componentWillMount() {
 		//this.props.onGetInvoices();
+		debugger;
 		this.props.onGetCustomers();
-		this.setState({
-			// route components are rendered with useful information, like URL params
-			invoice: this.findItemById(this.props.invoices, this.props.params.invoiceId)
-		});
+
+		if (this.props.routes[1].name === RoutesNames.editInvoice){
+			this.setState({
+				invoice: this.findItemById(this.props.invoices, this.props.params.invoiceId)
+			});
+		}
 	}
 
 	findItemById( items, itemId) {
@@ -77,5 +78,5 @@ export default connect(mapStateToProps, {
 	onGetInvoices: invoiceActions.getInvoices,
 	onGetCustomers: customerActions.getCustomers,
 	onGetProducts: productActions.getProducts,
-})(InvoicesContainer);
+})(InvoiceItemEditContainer);
 

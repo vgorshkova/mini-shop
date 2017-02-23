@@ -68,10 +68,8 @@ export default class ButtonWithDialog extends React.Component {
 			modalBodyElements = this.propNames.map(propName => (
 				<FieldGroup
 					key={`${fieldsOptions[propName].label}_id`}
-					id={`${fieldsOptions[propName].label}_id`}
 					label={fieldsOptions[propName].label}
 					validation={fieldsOptions[propName].isRequired}
-					type='text'
 					value={this.state.item[propName]}
 					placeholder={fieldsOptions[propName].label}
 					onChange={this.handleChange.bind(this, propName)}

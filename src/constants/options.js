@@ -7,7 +7,8 @@
 export const tableCustomerOptions = {
 	id: {
 		label: "id",
-		sortId: 5
+		sortId: 5,
+		canEdit: true,
 	},
 	name: {
 		label: "Name",
@@ -29,8 +30,9 @@ export const tableCustomerOptions = {
 
 export const tableProductOptions = {
 	id: {
-		label: "#",
-		sortId: 5
+		label: "id",
+		sortId: 5,
+		canEdit: true,
 	},
 	name: {
 		label: "Name",
@@ -48,7 +50,8 @@ export const tableProductOptions = {
 export const tableInvoiceOptions = {
 	id: {
 		label: "id",
-		sortId: 5
+		sortId: 5,
+		canEdit: true,
 	},
 	customerId: {
 		label: "CustomerId",
@@ -75,7 +78,8 @@ export const tableInvoiceOptions = {
 export const tableInvoiceItemOptions = {
 	id: {
 		label: "id",
-		sortId: 5
+		sortId: 5,
+		canEdit: true,
 	},
 	invoiceId: {
 		label: "InvoiceId",

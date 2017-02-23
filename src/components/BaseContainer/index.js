@@ -3,16 +3,15 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-function BaseContainer () {
+export default function BaseContainer ({ children }) {
 	return (
 		<Grid>
 			<Row>
 				<Col xs={12} md={12}>
-					{this.props.children}
+					{children}
 				</Col>
 			</Row>
 		</Grid>
 	);
 }
 
-export default BaseContainer;

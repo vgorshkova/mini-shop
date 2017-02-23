@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
-import { TableItemsWithLink, TableHeaderWithLink } from '../components';
+import { CommonTable } from '../components';
 import { invoiceActions, customerActions } from '../actions';
 import { tableInvoiceOptions } from '../constants/options';
 
@@ -32,19 +32,15 @@ class InvoicesContainer extends React.Component {
 
 		return (
 			<DocumentTitle title="Invoices">
-				<div>
-					<TableHeaderWithLink
-						title="Invoice list"
-						fieldsOptions={tableInvoiceOptions}
-					  toCreateLink={`invoice/create`}
-					/>
-					<TableItemsWithLink
-						items={items}
-						fieldsOptions={tableInvoiceOptions}
-						onDeleteItem={onDeleteInvoice}
-						toUpdateLink={`invoice/edit`}
-					/>
-				</div>
+				<CommonTable
+					isLinked={true}
+					title="Invoice list"
+					items={items}
+					fieldsOptions={tableInvoiceOptions}
+					toCreateLink={`invoices/create`}
+					toUpdateLink={`invoices/edit`}
+					onDeleteItem={onDeleteInvoice}
+				/>
 			</DocumentTitle>
 		);
 	}

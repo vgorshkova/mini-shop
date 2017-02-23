@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
-import { TableItems, TableHeader } from '../components';
+import { CommonTable } from '../components';
 import { customerActions } from '../actions';
 import { tableCustomerOptions } from '../constants/options';
 
@@ -15,21 +15,14 @@ class CustomersContainer extends React.Component {
 
 		return (
 			<DocumentTitle title="Customers">
-				<div>
-					<TableHeader
+					<CommonTable
 						title="Customer list"
-						fieldsOptions={tableCustomerOptions}
-						onCreateItem={onCreateCustomer}
-						onGetList={onGetCustomers}
-						onDeleteItem={onDeleteCustomer}
-					/>
-					<TableItems
 						items={customers}
 						fieldsOptions={tableCustomerOptions}
+						onCreateItem={onCreateCustomer}
 						onDeleteItem={onDeleteCustomer}
 					  onUpdateItem={onUpdateCustomer}
 					/>
-				</div>
 			</DocumentTitle>
 		);
 	}

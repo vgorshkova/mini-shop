@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { Header } from '../components';
+import { Header, BaseContainer } from '../components';
 
 @connect(null, null)
 export default class AppContainer extends React.Component {
@@ -13,7 +13,9 @@ export default class AppContainer extends React.Component {
 		return (
 			<div>
 				<Header />
-				{this.props.children}
+				<BaseContainer>
+					{this.props.children}
+				</BaseContainer>
 			</div>
 		);
 	}

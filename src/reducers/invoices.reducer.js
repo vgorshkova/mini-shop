@@ -9,7 +9,7 @@ import {
 
 const initialState = [{
 	id: 1,
-	customerId: 67,
+	customerId: 2,
 	discount: 5,
 	total: 30,
 }];

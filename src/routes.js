@@ -1,20 +1,28 @@
 import React from 'react';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Router, Route, IndexRoute, IndexRedirect, Link } from 'react-router';
-import { AppContainer, CustomersContainer, ProductsContainer, InvoicesContainer, InvoiceItemContainer, Home } from './containers';
+import {
+	AppContainer,
+	CustomersContainer,
+	ProductsContainer,
+	InvoicesContainer,
+	InvoiceItemCreateContainer,
+	InvoiceItemEditContainer,
+	Home,
+} from './containers';
+import { RoutesNames } from './constants/RoutesNames';
 
 function createRoutes(browserHistory, store) {
 	const history = syncHistoryWithStore(browserHistory, store);
 
 	return (
 		<Router history={history}>
-			<Route path="/" component={AppContainer} name="Home">
-				<Route path="customers" component={CustomersContainer} name="customers" />
-				<Route path="products" component={ProductsContainer} name="products" />
-				<Route path="invoices" component={InvoicesContainer} name="invoices" >
-					<Route path="invoice/create" component={InvoiceItemContainer} name="invoice" />
-					<Route path="invoice/edit/:invoiceId" component={InvoiceItemContainer} name="invoice" />
-				</Route>
+			<Route path="/" component={AppContainer} name={RoutesNames.home}>
+				<Route path="customers" component={CustomersContainer} name={RoutesNames.customers} />
+				<Route path="products" component={ProductsContainer} name={RoutesNames.products} />
+				<Route path="invoices" component={InvoicesContainer} name={RoutesNames.invoices} />
+				<Route path="invoices/create" component={InvoiceItemCreateContainer} name={RoutesNames.createInvoice} />
+				<Route path="invoices/edit/:invoiceId" component={InvoiceItemEditContainer} name={RoutesNames.editInvoice} />
 			</Route>
 		</Router>
 	);
