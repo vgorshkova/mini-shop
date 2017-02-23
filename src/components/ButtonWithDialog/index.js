@@ -9,7 +9,7 @@ export default class ButtonWithDialog extends React.Component {
 		const {fieldsOptions, mode, item} = this.props;
 
 		this.controlId = 'controlId';
-		
+
 		if (fieldsOptions) {
 			this.propNames = Object.keys(fieldsOptions)
 				.filter(field => ( fieldsOptions[field].canEdit ))

@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import { Button, Glyphicon, Table, Grid, Row, Col } from 'react-bootstrap';
 import { ButtonWithDialog } from '../../components';
 import { mode } from '../../constants/common';
 
-export default class TableItems extends React.Component {
+export default class TableItemsWithlink extends React.Component {
 	render() {
-		const { items, fieldsOptions } = this.props;
+		const { items, fieldsOptions, toUpdateLink } = this.props;
 
 		if (!(items && items.length)) {
 			return null;
@@ -42,13 +43,7 @@ export default class TableItems extends React.Component {
 							icon={<Glyphicon glyph="trash"/>}
 							item={item}
 						/>
-						<ButtonWithDialog
-							onAction={this.props.onUpdateItem}
-							fieldsOptions={fieldsOptions}
-							mode={mode.update}
-						  icon={<Glyphicon glyph="edit"/>}
-						  item={item}
-						/>
+						<Link	to={`${toUpdateLink}/${item.id}`}>Edit</Link>
 					</td>
 				</tr>
 			);

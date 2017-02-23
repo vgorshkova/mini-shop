@@ -6,7 +6,7 @@
 //
 export const tableCustomerOptions = {
 	id: {
-		label: "#",
+		label: "id",
 		sortId: 5
 	},
 	name: {
@@ -41,6 +41,83 @@ export const tableProductOptions = {
 	price: {
 		label: "Price",
 		sortId: 15,
+		canEdit: true,
+	},
+};
+
+export const tableInvoiceOptions = {
+	id: {
+		label: "id",
+		sortId: 5
+	},
+	customerId: {
+		label: "CustomerId",
+		sortId: 10,
+	},
+	customerName: {
+		label: "Customer",
+		sortId: 10,
+		canEdit: true,
+		isRequired: true,
+	},
+	discount: {
+		label: "Discount",
+		sortId: 15,
+		canEdit: true,
+	},
+	total: {
+		label: "Total",
+		sortId: 20,
+		canEdit: true,
+	},
+};
+
+export const tableInvoiceItemOptions = {
+	id: {
+		label: "id",
+		sortId: 5
+	},
+	invoiceId: {
+		label: "InvoiceId",
+		sortId: 10,
+	},
+	discount: {
+		label: "Discount",
+		sortId: 15,
+		canEdit: true,
+	},
+	customerName: {
+		label: "Customer",
+		sortId: 20,
+		canEdit: true,
+		isRequired: true,
+	},
+	total: {
+		label: "Total",
+		sortId: 25,
+	},
+
+};
+
+export const invoiceItemProductLine = {
+	productId: {
+		label: "ProdustId",
+			sortId: 5,
+	},
+	productName: {
+		label: "Name",
+		sortId: 10,
+		canEdit: true,
+		isRequired: true,
+	},
+	quantity: {
+		label: "Quantity",
+			sortId: 15,
+			canEdit: true,
+	},
+	ProductPrice: {
+		label: "Price",
+		sortId: 20,
 		canEdit: true,
 	},
 };
