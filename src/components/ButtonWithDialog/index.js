@@ -30,6 +30,8 @@ export default class ButtonWithDialog extends React.Component {
 				item: {...item}
 			};
 		}
+
+		this.state.initialItem = {...this.state.item};
 	}
 
 	validate = (propName) => {
@@ -66,10 +68,21 @@ export default class ButtonWithDialog extends React.Component {
 	onAction = () => {
 		if (this.props.mode === Mode.delete || this.validate()) {
 			this.props.onAction(this.state.item);
+			if (this.props.mode !== Mode.create) {
+				this.setState({
+					initialItem: {...this.state.item}
+				});
+			}
 			return true;
 		}
 
 		return false;
+	};
+
+	reset = () => {
+		this.setState({
+			item: {...this.state.initialItem}
+		});
 	};
 
 	render() {
@@ -102,7 +115,7 @@ export default class ButtonWithDialog extends React.Component {
 			</form>
 		);
 		return (
-			<FormDialog mode={mode} icon={icon} onAction={this.onAction} modalBody={modalBody}/>
+			<FormDialog mode={mode} icon={icon} onAction={this.onAction} reset={this.reset} modalBody={modalBody}/>
 		)
 	}
 }
