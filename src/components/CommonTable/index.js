@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Button, Glyphicon, Table, Grid, Row, Col } from 'react-bootstrap';
+import { Button, Glyphicon, Table } from 'react-bootstrap';
 import { ButtonWithDialog, CommonTableTitle } from '../../components';
 import { Link } from 'react-router';
 import { mode, tableType } from '../../constants/common';
@@ -24,6 +24,7 @@ export default function CommonTable({
 
 	const tableHead = (
 		<tr>
+			<th>#</th>
 			{
 				propNames.map(propname => {
 					return (<th key={`th_${propname}`}>{fieldsOptions[propname].label}</th>);
@@ -36,6 +37,7 @@ export default function CommonTable({
 	const tableBody = items.map((item, idx) => {
 		return (
 			<tr key={`tableItem_${item.id}`}>
+				<td>{idx + 1}</td>
 				{
 					propNames.map(propname => {
 						return (<td key={propname}>{item[propname]}</td>);
@@ -85,13 +87,3 @@ export default function CommonTable({
 
 	)
 }
-
-/*
-Table.propTypes = {
-	items: PropTypes.arrayOf(PropTypes.shape({
-		id: PropTypes.number.isRequired,
-		name: PropTypes.string.isRequired
-	}).isRequired).isRequired,
-	onItemClick: PropTypes.func.isRequired
-};
-*/

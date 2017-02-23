@@ -1,12 +1,11 @@
 import React, { PropTypes } from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
-export default function FieldGroup({ key, label, help, validation, ...props }) {
+export default function FieldGroup({ id, label, help, validationState, ...props }) {
 	return (
-		<FormGroup controlId={key}>
+		<FormGroup controlId={id} validationState={validationState}>
 			<ControlLabel>{label}</ControlLabel>
 			<FormControl type='text' {...props}	/>
-			{validation && <FormControl.Feedback />}
 			{help && <HelpBlock>{help}</HelpBlock>}
 		</FormGroup>
 	);

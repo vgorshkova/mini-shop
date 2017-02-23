@@ -8,7 +8,7 @@ export const tableCustomerOptions = {
 	id: {
 		label: "id",
 		sortId: 5,
-		canEdit: true,
+		canEdit: false,
 	},
 	name: {
 		label: "Name",
@@ -32,7 +32,7 @@ export const tableProductOptions = {
 	id: {
 		label: "id",
 		sortId: 5,
-		canEdit: true,
+		canEdit: false,
 	},
 	name: {
 		label: "Name",

@@ -8,8 +8,6 @@ export default class ButtonWithDialog extends React.Component {
 		super(props);
 		const {fieldsOptions, mode, item} = this.props;
 
-		this.controlId = 'controlId';
-
 		if (fieldsOptions) {
 			this.propNames = Object.keys(fieldsOptions)
 				.filter(field => ( fieldsOptions[field].canEdit ))
@@ -25,7 +23,6 @@ export default class ButtonWithDialog extends React.Component {
 					}, {})
 				};
 			}
-			this.controlId = fieldsOptions[this.isRequiredProps[0]].label || fieldsOptions[0].label;
 		}
 
 		if (mode === Mode.update || mode === Mode.delete) {
@@ -35,10 +32,20 @@ export default class ButtonWithDialog extends React.Component {
 		}
 	}
 
-	getValidationState = () => {
-		const isValid = this.isRequiredProps.reduce((isValid, requiredProp) => {
-			return isValid && (this.state.item[requiredProp] !== '')
-		}, true);
+	validate = (propName) => {
+		let isValid;
+		if (propName) {
+			isValid = this.state.item[propName] !== '';
+		} else {
+			isValid = this.isRequiredProps.reduce((isValid, requiredProp) => {
+				return isValid && (this.state.item[requiredProp] !== '')
+			}, true);
+		}
+		return isValid;
+	};
+
+	getValidationState = (propName) => {
+		const isValid = this.validate(propName);
 
 		if (isValid) {
 			return 'success';
@@ -57,7 +64,12 @@ export default class ButtonWithDialog extends React.Component {
 	};
 
 	onAction = () => {
-		this.props.onAction(this.state.item);
+		if (this.props.mode === Mode.delete || this.validate()) {
+			this.props.onAction(this.state.item);
+			return true;
+		}
+
+		return false;
 	};
 
 	render() {
@@ -68,8 +80,9 @@ export default class ButtonWithDialog extends React.Component {
 			modalBodyElements = this.propNames.map(propName => (
 				<FieldGroup
 					key={`${fieldsOptions[propName].label}_id`}
+					id={`${fieldsOptions[propName].label}_id`}
 					label={fieldsOptions[propName].label}
-					validation={fieldsOptions[propName].isRequired}
+					validationState={this.isRequiredProps.indexOf(propName) !== -1 ? this.getValidationState(propName) : null}
 					value={this.state.item[propName]}
 					placeholder={fieldsOptions[propName].label}
 					onChange={this.handleChange.bind(this, propName)}
@@ -83,10 +96,7 @@ export default class ButtonWithDialog extends React.Component {
 
 		const modalBody = (
 			<form>
-				<FormGroup
-					controlId={this.controlId}
-					validationState={mode !== Mode.delete ? this.getValidationState() : null}
-				>
+				<FormGroup controlId='controlId'>
 					{modalBodyElements}
 				</FormGroup>
 			</form>

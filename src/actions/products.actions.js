@@ -1,5 +1,4 @@
-//import { createAction } from 'redux-act';
-import axios from 'axios';
+import * as http from '../services/http-request';
 
 import {
 	SEND_REQUEST,
@@ -66,7 +65,7 @@ export function receiveRequest() {
 export function createProduct( product ) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.post("/api/products", product)
+		http.post("/products", product)
 			.then(response => {
 					dispatch(addProduct(response.data));
 					dispatch(receiveRequest());
@@ -78,7 +77,7 @@ export function createProduct( product ) {
 export function getProducts() {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.get("/api/products")
+		http.get("/products")
 			.then(response => {
 					dispatch(setProducts(response.data));
 					dispatch(receiveRequest());
@@ -91,7 +90,7 @@ export function getProducts() {
 export function deleteProduct(product) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.delete(`/api/products/${product.id}`)
+		http.del(`/products/${product.id}`)
 			.then(response => {
 					dispatch(removeProduct(response.data.id));
 					dispatch(receiveRequest());
@@ -104,7 +103,7 @@ export function deleteProduct(product) {
 export function updateProduct(product) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.put(`/api/products/${product.id}`, product)
+		http.put(`/products/${product.id}`, product)
 			.then(response => {
 					dispatch(editProduct(response.data));
 					dispatch(receiveRequest());

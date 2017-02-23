@@ -28,13 +28,6 @@ class CustomersContainer extends React.Component {
 	}
 }
 
-/*
-CustomersContainer.propTypes = {
-	customers: PropTypes.Array,
-	onCreateCustomer: PropTypes.func,
-};
-*/
-
 function mapStateToProps({ customers }) {
 	return {
 		customers,

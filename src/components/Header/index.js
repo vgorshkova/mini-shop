@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem} from 'react-bootstrap'
 

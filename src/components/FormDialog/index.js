@@ -16,8 +16,9 @@ export default class FormDialog extends React.Component {
 	};
 
 	onAction = () => {
-		this.props.onAction();
-		this.onClose();
+		if (this.props.onAction()) {
+			this.onClose();
+		}
 	};
 
 	render() {

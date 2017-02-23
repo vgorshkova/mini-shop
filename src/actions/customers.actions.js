@@ -1,5 +1,4 @@
-//import { createAction } from 'redux-act';
-import axios from 'axios';
+import * as http from '../services/http-request';
 
 import {
 	SEND_REQUEST,
@@ -66,7 +65,7 @@ export function receiveRequest() {
 export function createCustomer( customer ) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.post("/api/customers", customer)
+		http.post("/customers", customer)
 			.then(response => {
 					dispatch(addCustomer(response.data));
 					dispatch(receiveRequest());
@@ -78,7 +77,7 @@ export function createCustomer( customer ) {
 export function getCustomers() {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.get("/api/customers")
+		http.get("/customers")
 			.then(response => {
 					dispatch(setCustomers(response.data));
 					dispatch(receiveRequest());
@@ -91,7 +90,7 @@ export function getCustomers() {
 export function deleteCustomer(customer) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.delete(`/api/customers/${customer.id}`)
+		http.del(`/customers/${customer.id}`)
 			.then(response => {
 					dispatch(removeCustomer(response.data.id));
 					dispatch(receiveRequest());
@@ -104,7 +103,7 @@ export function deleteCustomer(customer) {
 export function updateCustomer(customer) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.put(`/api/customers/${customer.id}`, customer)
+		http.put(`/customers/${customer.id}`, customer)
 			.then(response => {
 					dispatch(editCustomer(response.data));
 					dispatch(receiveRequest());

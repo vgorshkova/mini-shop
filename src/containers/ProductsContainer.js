@@ -28,13 +28,6 @@ class ProductsContainer extends React.Component {
 	}
 }
 
-/*
- ProductsContainer.propTypes = {
- products: PropTypes.Array,
- onCreateProduct: PropTypes.func,
- };
- */
-
 function mapStateToProps({ products }) {
 	return {
 		products,
