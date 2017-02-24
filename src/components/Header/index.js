@@ -14,7 +14,7 @@ function Header () {
 				</Navbar.Header>
 				<Navbar.Collapse>
 					<Nav>
-						<NavItem>
+						<NavItem disabled>
 							<Link to="/invoices">Invoices</Link>
 						</NavItem>
 						<NavItem>

@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {FormGroup} from 'react-bootstrap';
 import {FormDialog, FieldGroup} from '../../components';
 import {mode as Mode} from '../../constants/common';
@@ -95,6 +95,7 @@ export default class ButtonWithDialog extends React.Component {
 					key={`${fieldsOptions[propName].label}_id`}
 					id={`${fieldsOptions[propName].label}_id`}
 					label={fieldsOptions[propName].label}
+					type={fieldsOptions[propName].type}
 					validationState={this.isRequiredProps.indexOf(propName) !== -1 ? this.getValidationState(propName) : null}
 					value={this.state.item[propName]}
 					placeholder={fieldsOptions[propName].label}

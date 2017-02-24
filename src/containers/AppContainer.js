@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Header, BaseContainer } from '../components';
 

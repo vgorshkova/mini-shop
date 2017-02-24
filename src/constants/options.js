@@ -44,6 +44,7 @@ export const tableProductOptions = {
 		label: "Price",
 		sortId: 15,
 		canEdit: true,
+		type: "number"
 	},
 };
 

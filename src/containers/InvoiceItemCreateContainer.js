@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { FormGroup } from 'react-bootstrap';
@@ -28,13 +28,6 @@ class InvoiceItemCreateContainer extends React.Component {
 		);
 	}
 }
-
-/*
- InvoicesContainer.propTypes = {
- invoices: PropTypes.Array,
- onCreateInvoice: PropTypes.func,
- };
- */
 
 function mapStateToProps({ customers, products }) {
 	return {

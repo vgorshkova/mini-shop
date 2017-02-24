@@ -11,11 +11,11 @@ export default class FormDialog extends React.Component {
 
 	onClose = () => {
 		this.setState({showModal: false});
-		this.props.reset();
 	};
 
 	onOpen = () => {
 		this.setState({showModal: true});
+		this.props.reset();
 	};
 
 	onAction = () => {

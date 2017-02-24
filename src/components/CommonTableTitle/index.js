@@ -1,6 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Button, PageHeader } from 'react-bootstrap';
-import { Link } from 'react-router';
 import { ButtonWithDialog } from '../../components';
 import { mode } from '../../constants/common';
 

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Button, Glyphicon, Table } from 'react-bootstrap';
 import { ButtonWithDialog, CommonTableTitle } from '../../components';
 import { Link } from 'react-router';
