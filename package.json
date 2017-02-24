@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "dev": "./node_modules/.bin/webpack-dev-server --history-api-fallback --content-base src --inline --hot"
+    "build": "./node_modules/.bin/webpack --config webpack.production.config.js"
   },
   "dependencies": {
     "axios": "^0.15.3",
