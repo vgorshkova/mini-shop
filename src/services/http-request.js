@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_ENDPOINT } from '../constants/Endpoints';
+require('es6-promise').polyfill();
 
 const headers = {};
 
