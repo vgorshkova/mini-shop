@@ -1,6 +1,8 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { toULCase } from '../../utils/common';
+import classnames from 'classnames';
+import s from '../../styles/style.less';
 
 export default class FormDialog extends React.Component {
 	state = {
@@ -25,9 +27,13 @@ export default class FormDialog extends React.Component {
 	render() {
 		const { modalBody, mode, icon } = this.props;
 
+		const classNames = classnames(
+			icon ? s.smallIconButton : ''
+		);
+
 		return (
-			<div>
-				<Button bsSize="small" onClick={this.onOpen}>
+			<div className={s.buttonContainer}>
+				<Button className={classNames} onClick={this.onOpen} >
 					{
 						icon ? icon : toULCase(mode)
 					}

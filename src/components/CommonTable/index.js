@@ -3,6 +3,8 @@ import { Button, Glyphicon, Table } from 'react-bootstrap';
 import { ButtonWithDialog, CommonTableTitle } from '../../components';
 import { Link } from 'react-router';
 import { mode, tableType } from '../../constants/common';
+import s from './styles.less';
+import commonS from '../../styles/style.less';
 
 export default function CommonTable({
 	title,
@@ -34,6 +36,9 @@ export default function CommonTable({
 		</tr>
 	);
 
+	const editIcon = <Glyphicon glyph="edit"/>;
+	const deleteIcon = <Glyphicon glyph="trash"/>;
+
 	const tableBody = items.map((item, idx) => {
 		return (
 			<tr key={`tableItem_${item.id}`}>
@@ -43,24 +48,24 @@ export default function CommonTable({
 						return (<td key={propname}>{item[propname]}</td>);
 					})
 				}
-				<td key={`ButtonGroup_${item.id}`}>
-					<ButtonWithDialog
-						onAction={onDeleteItem}
-						mode={mode.delete}
-						icon={<Glyphicon glyph="trash"/>}
-						item={item}
-					/>
+				<td key={`ButtonGroup_${item.id}`} className={s.tdButtons}>
 					{
 						isLinked ?
-							<Link to={`${toUpdateLink}/${item.id}`}>Edit</Link> :
+							<Button className={commonS.smallIconButton} href={`${toUpdateLink}/${item.id}`}>{editIcon}</Button>:
 							<ButtonWithDialog
 								onAction={onUpdateItem}
 								fieldsOptions={fieldsOptions}
 								mode={mode.update}
-								icon={<Glyphicon glyph="edit"/>}
+								icon={editIcon}
 								item={item}
 							/>
 					}
+					<ButtonWithDialog
+						onAction={onDeleteItem}
+						mode={mode.delete}
+						icon={deleteIcon}
+						item={item}
+					/>
 				</td>
 			</tr>
 		);
