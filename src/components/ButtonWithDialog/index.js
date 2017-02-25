@@ -14,24 +14,38 @@ export default class ButtonWithDialog extends React.Component {
 				.sort((a, b) => ( fieldsOptions[a].sortId - fieldsOptions[b].sortId ));
 
 			this.isRequiredProps = Object.keys(fieldsOptions).filter(field => ( fieldsOptions[field].isRequired ));
+		}
+		this.state = {
+			item: {}
+		};
+	}
 
+	initState(props) {
+		const {fieldsOptions, mode, item} = props;
+		if (fieldsOptions) {
 			if (mode === Mode.create) {
-				this.state = {
+				this.setState({
 					item: this.propNames.reduce((item, propName) => {
 						item[propName] = '';
 						return item;
 					}, {})
-				};
+				});
 			}
 		}
 
 		if (mode === Mode.update || mode === Mode.delete) {
-			this.state = {
+			this.setState({
 				item: {...item}
-			};
+			});
 		}
+	}
 
-		this.state.initialItem = {...this.state.item};
+	componentWillMount() {
+		this.initState(this.props);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.initState(nextProps);
 	}
 
 	validate = (propName) => {
@@ -68,11 +82,6 @@ export default class ButtonWithDialog extends React.Component {
 	onAction = () => {
 		if (this.props.mode === Mode.delete || this.validate()) {
 			this.props.onAction(this.state.item);
-			if (this.props.mode !== Mode.create) {
-				this.setState({
-					initialItem: {...this.state.item}
-				});
-			}
 			return true;
 		}
 
@@ -80,9 +89,7 @@ export default class ButtonWithDialog extends React.Component {
 	};
 
 	reset = () => {
-		this.setState({
-			item: {...this.state.initialItem}
-		});
+		this.initState(this.props);
 	};
 
 	render() {
