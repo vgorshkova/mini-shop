@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { Button, PageHeader } from 'react-bootstrap';
 import { ButtonWithDialog } from '../../components';
 import { mode } from '../../constants/common';
+import s from '../../styles/style.less';
 
 export default function CommonTableTitle({ isLinked, title, fieldsOptions, onCreateItem, toCreateLink }) {
 	return (
@@ -9,7 +11,7 @@ export default function CommonTableTitle({ isLinked, title, fieldsOptions, onCre
 			<PageHeader>{`${title} `}
 				{
 					isLinked ?
-						<Button href={toCreateLink}>Create</Button> :
+						<Button><Link className={s.buttonLink} to={toCreateLink}>Create</Link></Button> :
 						<ButtonWithDialog
 							onAction={onCreateItem}
 							fieldsOptions={fieldsOptions}

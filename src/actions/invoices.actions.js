@@ -1,5 +1,5 @@
 //import { createAction } from 'redux-act';
-import axios from 'axios';
+import * as http from '../services/http-request';
 
 import {
 	SEND_REQUEST,
@@ -30,6 +30,7 @@ export function setInvoices(invoices) {
 }
 
 export function editInvoice(invoice) {
+	debugger;
 	return ({
 		type: EDIT_INVOICE,
 		payload: {
@@ -66,7 +67,7 @@ export function receiveRequest() {
 export function createInvoice( invoice ) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.post("/api/invoices", invoice)
+		http.post("/api/invoices", invoice)
 			.then(response => {
 					dispatch(addInvoice(response.data));
 					dispatch(receiveRequest());
@@ -78,7 +79,7 @@ export function createInvoice( invoice ) {
 export function getInvoices() {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.get("/api/invoices")
+		http.get("/api/invoices")
 			.then(response => {
 					dispatch(setInvoices(response.data));
 					dispatch(receiveRequest());
@@ -91,7 +92,7 @@ export function getInvoices() {
 export function deleteInvoice(invoice) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.delete(`/api/invoices/${invoice.id}`)
+		http.delete(`/api/invoices/${invoice.id}`)
 			.then(response => {
 					dispatch(removeInvoice(response.data.id));
 					dispatch(receiveRequest());
@@ -104,7 +105,7 @@ export function deleteInvoice(invoice) {
 export function updateInvoice(invoice) {
 	return dispatch => {
 		dispatch(sendRequest());
-		axios.put(`/api/invoices/${invoice.id}`, invoice)
+		http.put(`/api/invoices/${invoice.id}`, invoice)
 			.then(response => {
 					dispatch(editInvoice(response.data));
 					dispatch(receiveRequest());
