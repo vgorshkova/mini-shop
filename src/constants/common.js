@@ -3,3 +3,5 @@ export const mode = {
 	update: 'update',
 	delete: 'delete',
 };
+
+export const defaultSelectValue = 'default;'

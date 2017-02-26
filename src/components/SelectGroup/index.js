@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, Col } from 'react-bootstrap';
 import s from '../../styles/style.less';
+import { defaultSelectValue } from '../../constants/common';
 
 export default function SelectGroup({
 	id, label,
@@ -15,7 +16,7 @@ export default function SelectGroup({
 	const optionItems =[
 		<option
 			key={'SelectGroup_option_default_id'}
-			value={'default'}
+			value={defaultSelectValue}
 		  className={s.selectDefaultOption}
 		>
 			{props.placeholder}

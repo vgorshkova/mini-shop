@@ -30,7 +30,6 @@ export function setInvoices(invoices) {
 }
 
 export function editInvoice(invoice) {
-	debugger;
 	return ({
 		type: EDIT_INVOICE,
 		payload: {

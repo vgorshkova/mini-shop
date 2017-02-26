@@ -20,7 +20,6 @@ export default function (state=initialState, action) {
 			return state.concat([action.payload.invoice]);
 		}
 		case EDIT_INVOICE: {
-			debugger;
 			return state.map(invoice => (invoice.id === action.payload.invoice.id ? action.payload.invoice : invoice));
 		}
 		case REMOVE_INVOICE:

@@ -5,13 +5,12 @@ import { FieldGroup, SelectGroup, ButtonWithDialog } from '../../components';
 import { invoiceActions, customerActions, productActions, invoiceItemsActions } from '../../actions';
 import { tableInvoiceItemOptions } from '../../constants/options';
 import s from '../../styles/style.less';
-import { mode } from '../../constants/common';
+import { mode, defaultSelectValue } from '../../constants/common';
 
 const invoiceItemNewId = 'newId';
 
 export default class InvoiceForm extends React.Component {
 	findItemById(items, itemId) {
-		debugger;
 		return items
 			.filter(__ => {
 				return __.id == itemId
@@ -21,37 +20,50 @@ export default class InvoiceForm extends React.Component {
 	}
 
 	handleChange = (propName, e) => {
-		debugger;
 		this.props.onEditInvoice({...this.props.invoice, [propName]: e.target.value})
 	};
 
 	handleQuantityChange = (item, e) => {
-		this.props.onUpdateInvoiceItem(item.invoiceId, {...item, quantity: e.target.value});
+		const quantity = e.target.value
+		this.props.onEditInvoiceItem({...item, quantity});
 	};
 
 	handleSelectChange = (propName, e) => {
+		// ?
+		const value = {[propName]: e.target.value === defaultSelectValue ? undefined: e.target.value};
+
 		switch(propName) {
 			case 'customerId':
-				this.props.onEditInvoice({...this.props.invoice, [propName]: e.target.value});
+				this.props.onEditInvoice({...this.props.invoice, ...value});
 				break;
 			case 'productId':
-				debugger;
 				this.props.invoiceItem ?
-					this.props.onEditInvoiceItem({...this.props.invoiceItem, [propName]: e.target.value}) :
-					this.props.onAddInvoiceItem({...{id: invoiceItemNewId}, [propName]: e.target.value});
+					this.props.onEditInvoiceItem({...this.props.invoiceItem, ...value}) :
+					this.props.onAddInvoiceItem({...{id: invoiceItemNewId}, ...value});
 				break;
 		}
 	};
 
 	handleAddInvoiceItem = () => {
-		debugger;
 		this.props.onAddInvoiceItem({
 			id: `${invoiceItemNewId}_${this.props.invoiceItems.length}`,
 			invoiceId: this.props.invoice.id,
 			productId: this.props.invoiceItem.productId,
 			quantity: 1
-		})
+		});
 	};
+
+	countTotal() {
+		const discount = this.props.invoice.discount || 0;
+		let result = this.props.invoiceItems.reduce((total, invoice) => {
+			const productPrice = this.findItemById(this.props.products, invoice.productId).price;
+			return (total * 100 + productPrice * 100 * invoice.quantity)/100;
+		}, 0);
+
+		result = result * 100 * (100 - discount) / 10000
+
+		return result.toFixed(2);
+	}
 
 	render() {
 		if (!this.props.invoice) {
@@ -61,7 +73,6 @@ export default class InvoiceForm extends React.Component {
 		const { customers, products } = this.props;
 
 		const tableBody = this.props.invoiceItems.map((item, idx) => {
-			debugger;
 			const product = this.findItemById(products, item.productId);
 			return (
 				<tr key={`tableItem_${item.id}`}>
@@ -143,7 +154,7 @@ export default class InvoiceForm extends React.Component {
 					</tbody>
 				</Table>
 
-				<h2><Col sm={2}>Total</Col><Col sm={2}>{this.props.invoice.total}</Col></h2>
+				<h2><Col sm={2}>Total</Col><Col sm={2} className={s.totalValue} >{this.countTotal()}</Col></h2>
 
 			</Form>
 		);
