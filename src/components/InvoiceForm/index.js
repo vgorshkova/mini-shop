@@ -187,7 +187,7 @@ export default class InvoiceForm extends React.Component {
 				<Col sm={2}><h2>Total</h2></Col><Col sm={10} className={s.totalValue} ><h2>{this.countTotal()}</h2></Col>
 
 				<Col sm={4} xsOffset={4} xs={4}>
-					<Button className={s.button} ><Link className={s.buttonLink} to={'/invoices'}>Cancel</Link></Button>
+					<Link className={s.buttonLink} to={'/invoices'}><Button className={s.button} >Cancel</Button></Link>
 					<Button bsStyle="primary" className={s.button} onClick={this.handleOk}>OK</Button>
 				</Col>
 

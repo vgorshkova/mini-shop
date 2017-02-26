@@ -11,7 +11,7 @@ export default function CommonTableTitle({ isLinked, title, fieldsOptions, onCre
 			<PageHeader>{`${title} `}
 				{
 					isLinked ?
-						<Button><Link className={s.buttonLink} to={toCreateLink}>Create</Link></Button> :
+						<Link className={s.buttonLink} to={toCreateLink}><Button>Create</Button></Link> :
 						<ButtonWithDialog
 							onAction={onCreateItem}
 							fieldsOptions={fieldsOptions}

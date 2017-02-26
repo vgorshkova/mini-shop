@@ -60,11 +60,11 @@ export default function CommonTable({
 				<td key={`ButtonGroup_${item.id}`} className={s.tdButtons}>
 					{
 						isLinked ?
-							<Button className={commonS.smallIconButton}>
-								<Link className={commonS.buttonLink} to={`${toUpdateLink}/${item.id}`}>
+							<Link className={commonS.buttonLink} to={`${toUpdateLink}/${item.id}`}>
+								<Button className={commonS.smallIconButton}>
 									{editIcon}
-								</Link>
-							</Button>
+								</Button>
+							</Link>
 							:
 							<ButtonWithDialog
 								onAction={onUpdateItem}
