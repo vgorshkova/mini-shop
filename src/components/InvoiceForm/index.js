@@ -1,16 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Form, FormGroup, FormControl, Button, Col, Table, Glyphicon } from 'react-bootstrap';
 import { FieldGroup, SelectGroup, ButtonWithDialog } from '../../components';
 import { invoiceActions, customerActions, productActions, invoiceItemsActions } from '../../actions';
 import { tableInvoiceItemOptions } from '../../constants/options';
 import s from '../../styles/style.less';
-import { mode, defaultSelectValue } from '../../constants/common';
-
-const invoiceItemNewId = 'newId';
+import { mode, defaultSelectValue, invoiceItemNewId } from '../../constants/common';
 
 export default class InvoiceForm extends React.Component {
+	routeConfirm = false;
+
+	getInitialState() {
+		return {
+			selectedProductId: null
+		}
+	}
+
 	findItemById(items, itemId) {
 		return items
 			.filter(__ => {
@@ -21,20 +27,21 @@ export default class InvoiceForm extends React.Component {
 	}
 
 	componentWillMount () {
-		const { router, route	} = this.props
-		router.setRouteLeaveHook(route, this.routerWillLeave)
+		const { router, route	} = this.props;
+		this.routeConfirm = false;
+		router.setRouteLeaveHook(route, this.routerWillLeave);
 	}
 
 	routerWillLeave = (nextLocation) => {
-		return 'Are you sure you want to cancel create invoice?'
-	}
+		return this.routeConfirm || 'Are you sure you want to cancel create invoice?'
+	};
 
 	handleChange = (propName, e) => {
 		this.props.onEditInvoice({...this.props.invoice, [propName]: e.target.value})
 	};
 
 	handleQuantityChange = (item, e) => {
-		const quantity = e.target.value
+		const quantity = e.target.value;
 		this.props.onEditInvoiceItem({...item, quantity});
 	};
 
@@ -42,13 +49,13 @@ export default class InvoiceForm extends React.Component {
 		const value = {[propName]: e.target.value === defaultSelectValue ? undefined: e.target.value};
 
 		switch(propName) {
-			case 'customerId':
+			case 'customer_id':
 				this.props.onEditInvoice({...this.props.invoice, ...value});
 				break;
-			case 'productId':
-				this.props.invoiceItem ?
-					this.props.onEditInvoiceItem({...this.props.invoiceItem, ...value}) :
-					this.props.onAddInvoiceItem({...{id: invoiceItemNewId}, ...value});
+			case 'product_id':
+				this.setState({
+					selectedProductId: e.target.value
+				});
 				break;
 		}
 	};
@@ -56,24 +63,26 @@ export default class InvoiceForm extends React.Component {
 	handleAddInvoiceItem = () => {
 		this.props.onAddInvoiceItem({
 			id: `${invoiceItemNewId}_${this.props.invoiceItems.length}`,
-			invoiceId: this.props.invoice.id,
-			productId: this.props.invoiceItem.productId,
+			invoice_id: this.props.invoice.id,
+			product_id: this.state.selectedProductId,
 			quantity: 1
 		});
 	};
 
-	handleCreate = () => {
-		debugger;
-		this.props.onCreateInvoice(
-			{...this.props.invoice, quantity: this.countTotal()},
-			this.props.invoiceItems);
+	handleOk = () => {
+		const action = this.props.onCreateInvoice || this.props.onUpdateInvoice;
+		action(
+			{...this.props.invoice, total: this.countTotal()},
+			this.props.invoiceItems.filter(item => item.invoice_id === this.props.invoice.id));
+		this.routeConfirm = true;
+		browserHistory.push('/invoices');
 	};
 
 
 	countTotal() {
 		const discount = this.props.invoice.discount || 0;
 		let result = this.props.invoiceItems.reduce((total, invoice) => {
-			const productPrice = this.findItemById(this.props.products, invoice.productId).price;
+			const productPrice = this.findItemById(this.props.products, invoice.product_id).price;
 			return (total * 100 + productPrice * 100 * invoice.quantity)/100;
 		}, 0);
 
@@ -90,14 +99,14 @@ export default class InvoiceForm extends React.Component {
 		const { customers, products } = this.props;
 
 		const tableBody = this.props.invoiceItems.map((item, idx) => {
-			const product = this.findItemById(products, item.productId);
+			const product = this.findItemById(products, item.product_id);
 			return (
 				<tr key={`tableItem_${item.id}`}>
 					<td>{idx + 1}</td>
 					<td>{product.name}</td>
 					<td>{product.price}</td>
 					<td key={`quantity_${item.id}`}>
-						<FormControl type='number' onChange={this.handleQuantityChange.bind(this, item)} defaultValue={item.quantity || 1} />
+						<FormControl type='number' onChange={this.handleQuantityChange.bind(this, item)} defaultValue={item.quantity || 1}/>
 					</td>
 					<td key={`ButtonRemove_${item.id}`} className={s.tdButtons}>
 						<ButtonWithDialog
@@ -131,7 +140,7 @@ export default class InvoiceForm extends React.Component {
 					id='discount_id'
 					label='Discount'
 					type="number"
-					value={this.props.invoice.discount}
+					value={this.props.invoice.discount || ""}
 					placeholder={'Discount'}
 					onChange={this.handleChange.bind(this, 'discount')}
 					horizontal={true}
@@ -144,7 +153,8 @@ export default class InvoiceForm extends React.Component {
 				  label='Customer'
 				  options={customers}
 					placeholder='Select customer...'
-				  onChange={this.handleSelectChange.bind(this, 'customerId')}
+					value={this.props.invoice.customer_id || ""}
+				  onChange={this.handleSelectChange.bind(this, 'customer_id')}
 					horizontal={true}
 					small={true}
 				/>
@@ -155,7 +165,7 @@ export default class InvoiceForm extends React.Component {
 					label='Add product'
 					options={products}
 					placeholder='Select product...'
-					onChange={this.handleSelectChange.bind(this, 'productId')}
+					onChange={this.handleSelectChange.bind(this, 'product_id')}
 					horizontal={true}
 					small={true}
 				/>
@@ -175,7 +185,7 @@ export default class InvoiceForm extends React.Component {
 
 				<Col sm={4} xsOffset={4} xs={4}>
 					<Button className={s.button} ><Link className={s.buttonLink} to={'/invoices'}>Cancel</Link></Button>
-					<Button bsStyle="primary" className={s.button} onClick={this.handleCreate}>Create</Button>
+					<Button bsStyle="primary" className={s.button} onClick={this.handleOk}>OK</Button>
 				</Col>
 
 			</Form>

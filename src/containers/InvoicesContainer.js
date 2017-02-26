@@ -4,6 +4,7 @@ import DocumentTitle from 'react-document-title';
 import { CommonTable } from '../components';
 import { invoiceActions, customerActions } from '../actions';
 import { invoiceOptions } from '../constants/options';
+import { invoiceNewId} from '../constants/common';
 
 class InvoicesContainer extends React.Component {
 	componentWillMount() {
@@ -21,17 +22,17 @@ class InvoicesContainer extends React.Component {
 	}
 
 	render() {
-		if (!invoices) {
-			return null;
-		}
 		const { invoices, customers, onDeleteInvoice } = this.props;
 
-		const items = invoices.map( invoice => {
+		const items = invoices ?  invoices
+			.filter(invoice => invoice.id !== invoiceNewId)
+			.map(invoice => {
 			const extInvoices = {...invoice};
-			const customer = this.findItemById(customers, invoice.customerId);
-			extInvoices.customerName =	customer ? customer.name: '';
+			const customer = this.findItemById(customers, invoice.customer_id);
+			extInvoices.customerName = customer ? customer.name : '';
 			return extInvoices;
-		});
+		}) : null	;
+
 
 		return (
 			<DocumentTitle title="Invoices">
@@ -39,7 +40,7 @@ class InvoicesContainer extends React.Component {
 					isLinked={true}
 					title="Invoice list"
 					items={items}
-					fieldsOptionsfieldsOptions={invoiceOptions}
+					fieldsOptions={invoiceOptions}
 					toCreateLink={`invoices/create`}
 					toUpdateLink={`invoices/edit`}
 					onDeleteItem={onDeleteInvoice}

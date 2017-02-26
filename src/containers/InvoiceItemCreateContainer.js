@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { InvoiceForm, BaseContainer } from '../components';
 import { invoiceActions, customerActions, productActions, invoiceItemsActions } from '../actions';
-
-const invoiceItemNewId = 'newId';
-const invoiceNewId = 'newId';
+import { invoiceItemNewId, invoiceNewId} from '../constants/common';
 
 class InvoiceItemCreateContainer extends React.Component {
 	componentWillMount() {
 		this.props.onGetCustomers();
 		this.props.onGetProducts();
 		this.props.onAddInvoice({id: invoiceNewId});
+		this.props.onSetInvoiceItems([]);
 	}
 
 	render() {
@@ -32,9 +31,9 @@ function mapStateToProps({ customers, products, invoices, invoiceItems }) {
 	return {
 		customers,
 		products,
-		invoice: invoices.filter(__ => (__.id === invoiceNewId))[0],
+		invoice: invoices.filter(__ => (__.id === invoiceNewId))[0] || {},
 		invoiceItem: invoiceItems.filter(__ => (__.id === invoiceItemNewId))[0],
-		invoiceItems: invoiceItems.filter(__ => (__.invoiceId === invoiceNewId))
+		invoiceItems: invoiceItems.filter(__ => (__.invoice_id === invoiceNewId))
 	};
 }
 
@@ -51,6 +50,7 @@ export default connect(mapStateToProps, {
 	onRemoveInvoice: invoiceActions.removeInvoice,
 	onAddInvoiceItem: invoiceItemsActions.addInvoiceItem,
 	onRemoveInvoiceItem: invoiceItemsActions.removeInvoiceItem,
+	onSetInvoiceItems: invoiceItemsActions.setInvoiceItems,
 	onEditInvoiceItem: invoiceItemsActions.editInvoiceItem
 })(InvoiceItemCreateContainer);
 

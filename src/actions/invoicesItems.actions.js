@@ -64,9 +64,8 @@ export function receiveRequest() {
 }
 
 export function createInvoiceItem(invoiceId, invoiceItem) {
-	debugger;
 	return dispatch => {
-		http.post(`/api/invoices/${invoiceId}/items`, invoiceItem)
+		http.post(`/invoices/${invoiceId}/items`, invoiceItem)
 			.then(response => {
 					dispatch(addInvoiceItem(response.data));
 				}
@@ -78,7 +77,7 @@ export function createInvoiceItem(invoiceId, invoiceItem) {
 export function getInvoiceItems(invoiceId) {
 	return dispatch => {
 		dispatch(sendRequest());
-		http.get(`/api/invoices/${invoiceId}/items`)
+		http.get(`/invoices/${invoiceId}/items`)
 			.then(response => {
 					dispatch(setInvoiceItems(response.data));
 					dispatch(receiveRequest());
@@ -91,7 +90,7 @@ export function getInvoiceItems(invoiceId) {
 export function deleteInvoiceItem(invoiceId, invoiceItem) {
 	return dispatch => {
 		dispatch(sendRequest());
-		http.delete(`/api/invoices/${invoiceId}/items/${invoiceItem.id}`)
+		http.del(`/invoices/${invoiceId}/items/${invoiceItem.id}`)
 			.then(response => {
 					dispatch(removeInvoiceItem(response.data));
 					dispatch(receiveRequest());
@@ -104,7 +103,7 @@ export function deleteInvoiceItem(invoiceId, invoiceItem) {
 export function updateInvoiceItem(invoiceId, invoiceItem) {
 	return dispatch => {
 		dispatch(sendRequest());
-		http.put(`api/invoices/${invoiceId}/items/${invoiceItem.id}`, invoiceItem)
+		http.put(`/invoices/${invoiceId}/items/${invoiceItem.id}`, invoiceItem)
 			.then(response => {
 					dispatch(editInvoiceItem(response.data));
 					dispatch(receiveRequest());

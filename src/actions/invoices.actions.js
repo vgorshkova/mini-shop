@@ -67,13 +67,13 @@ export function receiveRequest() {
 export function createInvoice(invoice, invoiceItems) {
 	return dispatch => {
 		dispatch(sendRequest());
-		http.post("/api/invoices", invoice)
+		http.post("/invoices", invoice)
 			.then(response => {
 				dispatch(addInvoice(response.data));
 				return Promise.resolve(response.data.id);
 			})
 			.then(id => {
-					invoiceItems.forEach(item => createInvoiceItem(id, item));
+				invoiceItems.forEach(item => dispatch(createInvoiceItem(id, item)));
 			})
 			.catch( error => (console.log(error)))
 	}
@@ -82,10 +82,23 @@ export function createInvoice(invoice, invoiceItems) {
 export function getInvoices() {
 	return dispatch => {
 		dispatch(sendRequest());
-		http.get("/api/invoices")
+		http.get("/invoices")
 			.then(response => {
-					dispatch(setInvoices(response.data));
+					dispatch(setInvoices(response.data || []));
 					dispatch(receiveRequest());
+				}
+			)
+			.catch( error => (console.log(error)))
+	}
+}
+
+export function getInvoice(id) {
+	return dispatch => {
+		dispatch(sendRequest());
+		http.get(`/invoices/${id}`)
+			.then(response => {
+				dispatch(setInvoices([response.data]));
+				dispatch(receiveRequest());
 				}
 			)
 			.catch( error => (console.log(error)))
@@ -95,7 +108,7 @@ export function getInvoices() {
 export function deleteInvoice(invoice) {
 	return dispatch => {
 		dispatch(sendRequest());
-		http.delete(`/api/invoices/${invoice.id}`)
+		http.del(`/invoices/${invoice.id}`)
 			.then(response => {
 					dispatch(removeInvoice(response.data.id));
 					dispatch(receiveRequest());
@@ -105,16 +118,19 @@ export function deleteInvoice(invoice) {
 	}
 }
 
-export function updateInvoice(invoice) {
+export function updateInvoice(invoice, invoiceItems) {
 	return dispatch => {
 		dispatch(sendRequest());
-		http.put(`/api/invoices/${invoice.id}`, invoice)
+		http.put(`/invoices/${invoice.id}`, invoice)
 			.then(response => {
 					dispatch(editInvoice(response.data));
-					dispatch(receiveRequest());
+					return Promise.resolve(response.data.id);
 				}
 			)
-			.catch( error => (console.log(error)))
+			.then(id => {
+				invoiceItems.forEach(item => dispatch(createInvoiceItem(id, item)));
+			})
+			.catch(error => (console.log(error)))
 	}
 }
 

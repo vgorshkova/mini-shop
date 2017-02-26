@@ -58,6 +58,11 @@ export const invoiceOptions = {
 		label: "CustomerId",
 		sortId: 10,
 	},
+	customerName: {
+		label: "Customer",
+		sortId: 12,
+		canEdit: true,
+	},
 	discount: {
 		label: "Discount",
 		sortId: 15,

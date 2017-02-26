@@ -15,8 +15,17 @@ export default function CommonTable({
 	toCreateLink, toUpdateLink
 	}) {
 
+	const commonTableTitle =
+		<CommonTableTitle
+			isLinked={isLinked}
+			title={title}
+			fieldsOptions={fieldsOptions}
+			onCreateItem={onCreateItem}
+			toCreateLink={toCreateLink}
+		/>;
+
 	if (!(items && items.length)) {
-		return null;
+		return commonTableTitle;
 	}
 
 	const propNames =
@@ -51,7 +60,7 @@ export default function CommonTable({
 				<td key={`ButtonGroup_${item.id}`} className={s.tdButtons}>
 					{
 						isLinked ?
-							<Button className={commonS.smallIconButton} href={`${toUpdateLink}/${item.id}`}>{editIcon}</Button>:
+							<Button className={commonS.smallIconButton}><Link className={commonS.buttonLink} to={`${toUpdateLink}/${item.id}`}>{editIcon}</Link></Button>:
 							<ButtonWithDialog
 								onAction={onUpdateItem}
 								fieldsOptions={fieldsOptions}
@@ -73,14 +82,8 @@ export default function CommonTable({
 
 	return (
 		<div>
-			<CommonTableTitle
-				isLinked={isLinked}
-				title={title}
-				fieldsOptions={fieldsOptions}
-				onCreateItem={onCreateItem}
-				toCreateLink={toCreateLink}
-			/>
-			<Table responsive striped bordered condensed hover>
+			{commonTableTitle}
+			<Table striped bordered condensed hover>
 				<thead>
 				{tableHead}
 				</thead>

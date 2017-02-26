@@ -5,4 +5,7 @@ export const mode = {
 	cancel: 'cancel',
 };
 
-export const defaultSelectValue = 'default;'
+export const defaultSelectValue = 'default';
+
+export const invoiceItemNewId = 'newId';
+export const invoiceNewId = 'newId';
