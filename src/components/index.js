@@ -8,6 +8,7 @@ import ButtonWithDialog from './ButtonWithDialog';
 import FieldGroup from './FieldGroup';
 import SelectGroup from './SelectGroup';
 import InvoiceForm from './InvoiceForm';
+import Spinner from './Spinner';
 
 export {
 	BaseContainer,
@@ -19,5 +20,6 @@ export {
 	CommonTable,
 	CommonTableTitle,
 	InvoiceForm,
-	SelectGroup
+	SelectGroup,
+	Spinner,
 };

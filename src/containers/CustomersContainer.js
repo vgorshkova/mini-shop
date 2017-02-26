@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
-import { CommonTable } from '../components';
+import { CommonTable, Spinner } from '../components';
 import { customerActions } from '../actions';
 import { tableCustomerOptions } from '../constants/options';
 
@@ -11,26 +11,30 @@ class CustomersContainer extends React.Component {
 	}
 
 	render() {
-		const { customers, onCreateCustomer, onGetCustomers, onDeleteCustomer,  onUpdateCustomer } = this.props;
+		const { app, customers, onCreateCustomer, onDeleteCustomer,  onUpdateCustomer } = this.props;
 
 		return (
 			<DocumentTitle title="Customers">
+				<div>
+					{app.isFetching ? <Spinner /> : null}
 					<CommonTable
 						title="Customer list"
 						items={customers}
 						fieldsOptions={tableCustomerOptions}
 						onCreateItem={onCreateCustomer}
 						onDeleteItem={onDeleteCustomer}
-					  onUpdateItem={onUpdateCustomer}
+						onUpdateItem={onUpdateCustomer}
 					/>
+				</div>
 			</DocumentTitle>
 		);
 	}
 }
 
-function mapStateToProps({ customers }) {
+function mapStateToProps({customers, app}) {
 	return {
 		customers,
+		app,
 	};
 }
 

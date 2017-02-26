@@ -97,6 +97,5 @@ export default function CommonTable({
 				</tbody>
 			</Table>
 		</div>
-
 	)
 }

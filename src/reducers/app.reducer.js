@@ -11,22 +11,15 @@ const initialState = {
 export default function (state=initialState, action) {
 	switch (action.type) {
 		case SEND_REQUEST:
-		{
 			return {
 				...state,
 				isFetching: true
 			};
-		}
-
 		case RECEIVE_REQUEST:
-		{
 			return {
 				...state,
 				isFetching: false
 			};
-		}
-
-
 		default:
 			return state;
 	}
