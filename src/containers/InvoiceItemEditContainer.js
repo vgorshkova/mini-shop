@@ -9,7 +9,6 @@ class InvoiceItemEditContainer extends React.Component {
 	componentWillMount() {
 		this.props.onGetCustomers();
 		this.props.onGetProducts();
-		this.props.onSetInvoiceItems([]);
 		this.props.onGetInvoice(this.props.params.invoiceId);
 		this.props.onGetInvoiceItems(this.props.params.invoiceId);
 	}
@@ -27,13 +26,14 @@ class InvoiceItemEditContainer extends React.Component {
 	}
 }
 
-function mapStateToProps({ customers, products, invoices, invoiceItems }) {
+function mapStateToProps({ customers, products, invoices, invoiceItems, initialInvoiceItems }) {
 	return {
 		customers,
 		products,
 		invoice: invoices[0] || {},
 		invoiceItem: invoiceItems.filter(__ => (__.id === invoiceItemNewId))[0],
-		invoiceItems: invoiceItems
+		invoiceItems,
+		initialInvoiceItems
 	};
 }
 

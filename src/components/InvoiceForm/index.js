@@ -14,8 +14,7 @@ export default class InvoiceForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedProductId: null,
-			oldInvoiceItems: props.invoiceItems
+			selectedProductId: null
 		}
 	}
 
@@ -76,7 +75,7 @@ export default class InvoiceForm extends React.Component {
 		action(
 			{...this.props.invoice, total: this.countTotal()},
 			this.props.invoiceItems.filter(item => item.invoice_id === this.props.invoice.id),
-			this.state.oldInvoiceItems);
+			this.props.initialInvoiceItems);
 		this.routeConfirm = true;
 		browserHistory.push('/invoices');
 	};

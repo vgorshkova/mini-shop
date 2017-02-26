@@ -52,7 +52,7 @@ export const invoiceOptions = {
 	id: {
 		label: "id",
 		sortId: 5,
-		canEdit: true,
+		canEdit: false,
 	},
 	customerId: {
 		label: "CustomerId",
@@ -72,27 +72,6 @@ export const invoiceOptions = {
 	total: {
 		label: "Total",
 		sortId: 20,
-	},
-};
-
-export const invoiceItemOptions = {
-	id: {
-		label: "id",
-		sortId: 5,
 		canEdit: true,
-	},
-	invoiceId: {
-		label: "InvoiceId",
-		sortId: 10,
-	},
-	productId: {
-		label: "productId",
-		sortId: 15,
-	},
-	count: {
-		label: "Count",
-		sortId: 20,
-		canEdit: true,
-		type: "number",
 	},
 };
