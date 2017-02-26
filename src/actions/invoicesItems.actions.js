@@ -64,14 +64,14 @@ export function receiveRequest() {
 }
 
 export function createInvoiceItem(invoiceId, invoiceItem) {
+	debugger;
 	return dispatch => {
-		dispatch(sendRequest());
 		http.post(`/api/invoices/${invoiceId}/items`, invoiceItem)
 			.then(response => {
 					dispatch(addInvoiceItem(response.data));
-					dispatch(receiveRequest());
 				}
 			)
+			.catch( error => (console.log(error)))
 	}
 }
 

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { CommonTable } from '../components';
 import { invoiceActions, customerActions } from '../actions';
-import { tableInvoiceOptions } from '../constants/options';
+import { invoiceOptions } from '../constants/options';
 
 class InvoicesContainer extends React.Component {
 	componentWillMount() {
-		//this.props.onGetInvoices();
+		this.props.onGetInvoices();
 		this.props.onGetCustomers();
 	}
 
@@ -21,6 +21,9 @@ class InvoicesContainer extends React.Component {
 	}
 
 	render() {
+		if (!invoices) {
+			return null;
+		}
 		const { invoices, customers, onDeleteInvoice } = this.props;
 
 		const items = invoices.map( invoice => {
@@ -36,7 +39,7 @@ class InvoicesContainer extends React.Component {
 					isLinked={true}
 					title="Invoice list"
 					items={items}
-					fieldsOptions={tableInvoiceOptions}
+					fieldsOptionsfieldsOptions={invoiceOptions}
 					toCreateLink={`invoices/create`}
 					toUpdateLink={`invoices/edit`}
 					onDeleteItem={onDeleteInvoice}

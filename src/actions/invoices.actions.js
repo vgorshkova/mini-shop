@@ -1,5 +1,6 @@
 //import { createAction } from 'redux-act';
 import * as http from '../services/http-request';
+import { createInvoiceItem } from './invoicesItems.actions';
 
 import {
 	SEND_REQUEST,
@@ -63,15 +64,18 @@ export function receiveRequest() {
 	});
 }
 
-export function createInvoice( invoice ) {
+export function createInvoice(invoice, invoiceItems) {
 	return dispatch => {
 		dispatch(sendRequest());
 		http.post("/api/invoices", invoice)
 			.then(response => {
-					dispatch(addInvoice(response.data));
-					dispatch(receiveRequest());
-				}
-			)
+				dispatch(addInvoice(response.data));
+				return Promise.resolve(response.data.id);
+			})
+			.then(id => {
+					invoiceItems.forEach(item => createInvoiceItem(id, item));
+			})
+			.catch( error => (console.log(error)))
 	}
 }
 

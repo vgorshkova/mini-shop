@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { Form, FormGroup, FormControl, Button, Col, Table, Glyphicon } from 'react-bootstrap';
 import { FieldGroup, SelectGroup, ButtonWithDialog } from '../../components';
 import { invoiceActions, customerActions, productActions, invoiceItemsActions } from '../../actions';
@@ -19,6 +20,15 @@ export default class InvoiceForm extends React.Component {
 			;
 	}
 
+	componentWillMount () {
+		const { router, route	} = this.props
+		router.setRouteLeaveHook(route, this.routerWillLeave)
+	}
+
+	routerWillLeave = (nextLocation) => {
+		return 'Are you sure you want to cancel create invoice?'
+	}
+
 	handleChange = (propName, e) => {
 		this.props.onEditInvoice({...this.props.invoice, [propName]: e.target.value})
 	};
@@ -29,7 +39,6 @@ export default class InvoiceForm extends React.Component {
 	};
 
 	handleSelectChange = (propName, e) => {
-		// ?
 		const value = {[propName]: e.target.value === defaultSelectValue ? undefined: e.target.value};
 
 		switch(propName) {
@@ -52,6 +61,14 @@ export default class InvoiceForm extends React.Component {
 			quantity: 1
 		});
 	};
+
+	handleCreate = () => {
+		debugger;
+		this.props.onCreateInvoice(
+			{...this.props.invoice, quantity: this.countTotal()},
+			this.props.invoiceItems);
+	};
+
 
 	countTotal() {
 		const discount = this.props.invoice.discount || 0;
@@ -82,7 +99,7 @@ export default class InvoiceForm extends React.Component {
 					<td key={`quantity_${item.id}`}>
 						<FormControl type='number' onChange={this.handleQuantityChange.bind(this, item)} defaultValue={item.quantity || 1} />
 					</td>
-					<td key={`ButtonGroup_${item.id}`} className={s.tdButtons}>
+					<td key={`ButtonRemove_${item.id}`} className={s.tdButtons}>
 						<ButtonWithDialog
 							onAction={this.props.onRemoveInvoiceItem}
 							mode={mode.delete}
@@ -154,7 +171,12 @@ export default class InvoiceForm extends React.Component {
 					</tbody>
 				</Table>
 
-				<h2><Col sm={2}>Total</Col><Col sm={2} className={s.totalValue} >{this.countTotal()}</Col></h2>
+				<Col sm={2}><h2>Total</h2></Col><Col sm={10} className={s.totalValue} ><h2>{this.countTotal()}</h2></Col>
+
+				<Col sm={4} xsOffset={4} xs={4}>
+					<Button className={s.button} ><Link className={s.buttonLink} to={'/invoices'}>Cancel</Link></Button>
+					<Button bsStyle="primary" className={s.button} onClick={this.handleCreate}>Create</Button>
+				</Col>
 
 			</Form>
 		);

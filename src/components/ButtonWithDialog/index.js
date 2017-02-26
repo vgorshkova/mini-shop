@@ -6,7 +6,7 @@ import {mode as Mode} from '../../constants/common';
 export default class ButtonWithDialog extends React.Component {
 	constructor(props) {
 		super(props);
-		const {fieldsOptions, mode, item} = this.props;
+		const { fieldsOptions } = this.props;
 
 		if (fieldsOptions) {
 			this.propNames = Object.keys(fieldsOptions)
@@ -21,7 +21,7 @@ export default class ButtonWithDialog extends React.Component {
 	}
 
 	initState(props) {
-		const {fieldsOptions, mode, item} = props;
+		const { fieldsOptions, mode, item } = props;
 		if (fieldsOptions) {
 			if (mode === Mode.create) {
 				this.setState({
@@ -81,6 +81,7 @@ export default class ButtonWithDialog extends React.Component {
 
 	onAction = () => {
 		if (this.props.mode === Mode.delete || this.validate()) {
+
 			this.props.onAction(this.state.item);
 			return true;
 		}
