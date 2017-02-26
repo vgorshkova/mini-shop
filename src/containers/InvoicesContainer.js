@@ -50,13 +50,6 @@ class InvoicesContainer extends React.Component {
 	}
 }
 
-/*
- InvoicesContainer.propTypes = {
- invoices: PropTypes.Array,
- onCreateInvoice: PropTypes.func,
- };
- */
-
 function mapStateToProps({ invoices, customers }) {
 	return {
 		invoices,

@@ -168,13 +168,14 @@ export default class InvoiceForm extends React.Component {
 					options={products}
 					placeholder='Select product...'
 					onChange={this.handleSelectChange.bind(this, 'product_id')}
+					onAction={this.handleAddInvoiceItem}
+					buttonTitle="Add"
+					hasButton={true}
 					horizontal={true}
 					small={true}
 				/>
 
-				<Button bsStyle="primary" onClick={this.handleAddInvoiceItem} >Add</Button>
-
-				<Table responsive>
+				<Table>
 					<thead>
 						{tableHead}
 					</thead>
