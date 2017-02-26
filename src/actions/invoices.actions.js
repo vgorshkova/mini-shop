@@ -1,6 +1,6 @@
 //import { createAction } from 'redux-act';
 import * as http from '../services/http-request';
-import { createInvoiceItem } from './invoicesItems.actions';
+import { createInvoiceItem, deleteInvoiceItem } from './invoicesItems.actions';
 
 import {
 	SEND_REQUEST,
@@ -118,7 +118,7 @@ export function deleteInvoice(invoice) {
 	}
 }
 
-export function updateInvoice(invoice, invoiceItems) {
+export function updateInvoice(invoice, invoiceItems, oldInvoiceItems) {
 	return dispatch => {
 		dispatch(sendRequest());
 		http.put(`/invoices/${invoice.id}`, invoice)
@@ -128,6 +128,7 @@ export function updateInvoice(invoice, invoiceItems) {
 				}
 			)
 			.then(id => {
+				oldInvoiceItems.forEach(item => dispatch(deleteInvoiceItem(id, {id: item.id})));
 				invoiceItems.forEach(item => dispatch(createInvoiceItem(id, item)));
 			})
 			.catch(error => (console.log(error)))

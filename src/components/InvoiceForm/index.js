@@ -11,9 +11,11 @@ import { mode, defaultSelectValue, invoiceItemNewId } from '../../constants/comm
 export default class InvoiceForm extends React.Component {
 	routeConfirm = false;
 
-	getInitialState() {
-		return {
-			selectedProductId: null
+	constructor(props) {
+		super(props);
+		this.state = {
+			selectedProductId: null,
+			oldInvoiceItems: props.invoiceItems
 		}
 	}
 
@@ -73,7 +75,8 @@ export default class InvoiceForm extends React.Component {
 		const action = this.props.onCreateInvoice || this.props.onUpdateInvoice;
 		action(
 			{...this.props.invoice, total: this.countTotal()},
-			this.props.invoiceItems.filter(item => item.invoice_id === this.props.invoice.id));
+			this.props.invoiceItems.filter(item => item.invoice_id === this.props.invoice.id),
+			this.state.oldInvoiceItems);
 		this.routeConfirm = true;
 		browserHistory.push('/invoices');
 	};

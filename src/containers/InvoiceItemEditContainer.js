@@ -9,6 +9,7 @@ class InvoiceItemEditContainer extends React.Component {
 	componentWillMount() {
 		this.props.onGetCustomers();
 		this.props.onGetProducts();
+		this.props.onSetInvoiceItems([]);
 		this.props.onGetInvoice(this.props.params.invoiceId);
 		this.props.onGetInvoiceItems(this.props.params.invoiceId);
 	}
@@ -50,5 +51,6 @@ export default connect(mapStateToProps, {
 	onAddInvoiceItem: invoiceItemsActions.addInvoiceItem,
 	onRemoveInvoiceItem: invoiceItemsActions.removeInvoiceItem,
 	onGetInvoiceItems: invoiceItemsActions.getInvoiceItems,
+	onSetInvoiceItems: invoiceItemsActions.setInvoiceItems,
 	onEditInvoiceItem: invoiceItemsActions.editInvoiceItem
 })(InvoiceItemEditContainer);
