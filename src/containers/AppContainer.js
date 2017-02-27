@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { Header, BaseContainer } from '../components';
+import { Header, BaseContainer, Spinner } from '../components';
 
-export default class AppContainer extends React.Component {
+class AppContainer extends React.Component {
 	componentDidMount() {
 		injectTapEventPlugin();
 	}
@@ -12,9 +13,20 @@ export default class AppContainer extends React.Component {
 			<div>
 				<Header />
 				<BaseContainer>
-					{this.props.children}
+					<div>
+						{this.props.app.isFetching ? <Spinner /> : null}
+						{this.props.children}
+					</div>
 				</BaseContainer>
 			</div>
 		);
 	}
 }
+
+function mapStateToProps({app}) {
+	return {
+		app,
+	};
+}
+
+export default connect(mapStateToProps, {})(AppContainer);

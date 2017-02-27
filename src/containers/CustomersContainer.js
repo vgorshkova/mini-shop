@@ -15,8 +15,6 @@ class CustomersContainer extends React.Component {
 
 		return (
 			<DocumentTitle title="Customers">
-				<div>
-					{app.isFetching ? <Spinner /> : null}
 					<CommonTable
 						title="Customer list"
 						items={customers}
@@ -25,16 +23,14 @@ class CustomersContainer extends React.Component {
 						onDeleteItem={onDeleteCustomer}
 						onUpdateItem={onUpdateCustomer}
 					/>
-				</div>
 			</DocumentTitle>
 		);
 	}
 }
 
-function mapStateToProps({customers, app}) {
+function mapStateToProps({customers}) {
 	return {
 		customers,
-		app,
 	};
 }
 

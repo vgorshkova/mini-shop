@@ -80,10 +80,7 @@ export function getCustomers() {
 		http.get("/customers")
 			.then(response => {
 					dispatch(setCustomers(response.data));
-					setTimeout(() => {
-						return dispatch(receiveRequest())
-					}, 3000) //demo Spinner
-					//dispatch(receiveRequest());
+					dispatch(receiveRequest());
 				}
 			)
 			.catch( error => (console.log(error)))
